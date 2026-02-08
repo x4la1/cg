@@ -174,16 +174,14 @@ void OnPaint(HWND hwnd)
 	GetClientRect(hwnd, &rcClient);
 	int centerX = rcClient.right / 2;
 	int centerY = rcClient.bottom / 2;
-	int letterSize = 150; // Размер букв
 
-	// Расчет смещений для каждой буквы
 	double firstOffset = CalculateBounceOffset(g_animationTime, FIRST_LETTER_PHASE_OFFSET);
 	double secondOffset = CalculateBounceOffset(g_animationTime, SECOND_LETTER_PHASE_OFFSET);
 	double thirdOffset = CalculateBounceOffset(g_animationTime, THIRD_LETTER_PHASE_OFFSET);
 
-	DrawLetterL(dc, centerX - letterSize * 1.5, centerY + firstOffset, LETTER_SIZE);
-	DrawLetterD(dc, centerX, centerY + secondOffset, letterSize);
-	DrawLetterA(dc, centerX + letterSize * 1.5, centerY + thirdOffset, LETTER_SIZE);
+	DrawLetterL(dc, centerX - LETTER_SIZE * 1.5, centerY + firstOffset, LETTER_SIZE);
+	DrawLetterD(dc, centerX, centerY + secondOffset, LETTER_SIZE);
+	DrawLetterA(dc, centerX + LETTER_SIZE * 1.5, centerY + thirdOffset, LETTER_SIZE);
 
 	EndPaint(hwnd, &ps);
 }
@@ -268,11 +266,7 @@ int MainLoop()
 		}
 		else
 		{
-			// Если это сообщение о нажатии виртуальной клавиши,
-			// то добавляем в очередь сообщений сообщения, несущие информацию о
-			// коде вводимого пользователем символа
 			TranslateMessage(&msg);
-			// передаем сообщение в соответствующую оконную процедуру
 			DispatchMessage(&msg);
 		}
 	}
