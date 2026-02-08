@@ -1,9 +1,20 @@
 ﻿#include "TestWinApi.h"
 #include "framework.h"
 
-#define MAX_LOADSTRING 100
 TCHAR const CLASS_NAME[] = _T("MainWndClass");
 TCHAR const WINDOW_TITLE[] = _T("My first window");
+
+
+const double M_PI = 3.14159265;
+
+const double LETTER_SIZE = 250.0;
+
+const double JUMP_AMPLITUDE = 80.0;
+const double JUMP_PERIOD = 1.5;
+
+const double FIRST_LETTER_PHASE_OFFSET = 0.0;
+const double SECOND_LETTER_PHASE_OFFSET = 0.3;
+const double THIRD_LETTER_PHASE_OFFSET = 0.6;
 
 enum
 {
@@ -13,16 +24,6 @@ enum
 DWORD g_lastTick;
 UINT_PTR g_timerId = 0;
 double g_animationTime = 0;
-const double M_PI = 3.14159265;
-
-const double LETTER_SIZE = 150.0;
-
-const double JUMP_AMPLITUDE = 80.0;
-const double JUMP_PERIOD = 2.0;
-
-const double FIRST_LETTER_PHASE_OFFSET = 0.0;
-const double SECOND_LETTER_PHASE_OFFSET = 0.3;
-const double THIRD_LETTER_PHASE_OFFSET = 0.6;
 
 double CalculateBounceOffset(double time, double phaseOffset)
 {
@@ -65,14 +66,13 @@ void DrawLetterD(HDC dc, int centerX, int centerY, int size)
 	HBRUSH oldBrush = SelectBrush(dc, brush);
 
 	double halfSize = size / 2;
-	
+
 	Rectangle(
 		dc,
 		static_cast<int>(centerX - halfSize),
 		static_cast<int>(centerY + (halfSize * 0.4)),
 		static_cast<int>(centerX + halfSize),
-		static_cast<int>(centerY + (halfSize * 0.8))
-		);
+		static_cast<int>(centerY + (halfSize * 0.8)));
 
 	Rectangle(
 		dc,
@@ -102,7 +102,7 @@ void DrawLetterD(HDC dc, int centerX, int centerY, int size)
 		static_cast<int>(centerX - (halfSize * 0.2)),
 		static_cast<int>(centerY + (halfSize * 0.4)));
 
-		Rectangle(
+	Rectangle(
 		dc,
 		static_cast<int>(centerX + (halfSize * 0.2)),
 		static_cast<int>(centerY - (halfSize * 0.6)),
