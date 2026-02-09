@@ -7,10 +7,10 @@ TCHAR const WINDOW_TITLE[] = _T("My first window");
 
 const double M_PI = 3.14159265;
 
-const double LETTER_SIZE = 250.0;
+const double LETTER_SIZE = 150.0;
 
 const double JUMP_AMPLITUDE = 80.0;
-const double JUMP_PERIOD = 1.5;
+const double JUMP_PERIOD = 10;
 
 const double FIRST_LETTER_PHASE_OFFSET = 0.0;
 const double SECOND_LETTER_PHASE_OFFSET = 0.3;
@@ -28,9 +28,18 @@ double g_animationTime = 0;
 double CalculateBounceOffset(double time, double phaseOffset)
 {
 	double adjustedTime = time + phaseOffset;
-	double angle = (adjustedTime / JUMP_PERIOD) * 2.0 * M_PI;
+	double t = fmod(adjustedTime, JUMP_PERIOD);
+	double normalizedTime = t / JUMP_PERIOD;
 
-	return JUMP_AMPLITUDE * sin(angle);
+	// Используем параболическую формулу для моделирования прыжка.
+	// y = h * (1 - 4*(t-0.5)^2), где h - максимальная высота, t - нормализованное время [0,1].
+	// Эта формула дает 0 в начале (t=0), максимальное значение h в середине (t=0.5),
+	// и снова 0 в конце (t=1), что идеально моделирует один прыжок.
+	double verticalPosition = JUMP_AMPLITUDE * (1.0 - 4.0 * pow(normalizedTime - 0.5, 2));
+
+	// Возвращаем отрицательное смещение, так как в GDI ось Y направлена вниз.
+	// Чтобы подпрыгнуть, нужно уменьшить Y-координату.
+	return -verticalPosition;
 }
 
 void DrawLetterL(HDC dc, int centerX, int centerY, int size)
