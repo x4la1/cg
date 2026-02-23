@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CPaintView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_COMMAND(ID_COLOR_PICK, OnColorPick)
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CPaintView
@@ -67,6 +68,18 @@ BOOL CPaintView::OnEraseBkgnd(CDC* pDC)
 	return TRUE;
 }
 
+void CPaintView::OnColorPick()
+{
+	COLORREF currentColor = RGB(m_penColor.GetR(), m_penColor.GetG(), m_penColor.GetB());
+	CColorDialog dlg(currentColor, CC_FULLOPEN | CC_RGBINIT, this);
+
+	if (dlg.DoModal() == IDOK)
+	{
+		COLORREF selectedColor = dlg.GetColor();
+		m_penColor = Gdiplus::Color(255, GetRValue(selectedColor), GetGValue(selectedColor), GetBValue(selectedColor));
+	}
+}
+
 void CPaintView::OnDraw(CDC* pDC)
 {
 	CPaintDoc* pDoc = GetDocument();
@@ -76,7 +89,7 @@ void CPaintView::OnDraw(CDC* pDC)
 
 	CRect clientRect;
 	GetClientRect(&clientRect);
-	
+
 	CMemDC memDC(*pDC, this);
 	CDC* dc = &memDC.GetDC();
 

@@ -22,6 +22,7 @@ public:
 public:
 	virtual void OnDraw(CDC* pDC);  // переопределено для отрисовки этого представления
 	virtual void OnInitialUpdate();
+	virtual void OnColorPick();
 	virtual void OnLButtonDown(UINT nFlags, CPoint point);
 	virtual void OnMouseMove(UINT nFlags, CPoint point);
 	virtual void OnLButtonUp(UINT nFlags, CPoint point);
