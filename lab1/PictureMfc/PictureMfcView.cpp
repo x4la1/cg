@@ -23,13 +23,17 @@
 IMPLEMENT_DYNCREATE(CPictureMfcView, CView)
 
 BEGIN_MESSAGE_MAP(CPictureMfcView, CView)
+	ON_WM_DESTROY()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CPictureMfcView
 
 CPictureMfcView::CPictureMfcView() noexcept
 {
-	// TODO: добавьте код создания
+	m_picture = std::make_unique<LodgePicture>(100, 100);
 
 }
 

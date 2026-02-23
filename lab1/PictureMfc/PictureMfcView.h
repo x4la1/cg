@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "Picture.h"
+#include <memory>
 
 class CPictureMfcView : public CView
 {
@@ -21,6 +22,10 @@ public:
 // Переопределение
 public:
 	virtual void OnDraw(CDC* pDC);
+	virtual void OnLButtonDown(UINT nFlags, CPoint point);
+	virtual void OnLButtonUp(UINT nFlags, CPoint point);
+	virtual void OnMouseMove(UINT nFlags, CPoint point);
+	virtual void OnDestroy();
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 
@@ -37,6 +42,9 @@ protected:
 // Созданные функции схемы сообщений
 protected:
 	DECLARE_MESSAGE_MAP()
+
+private:
+	std::unique_ptr<Picture> m_picture;
 };
 
 #ifndef _DEBUG  // версия отладки в PictureMfcView.cpp
