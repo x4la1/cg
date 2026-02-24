@@ -2,7 +2,7 @@
 #include <cmath>
 #include "framework.h"
 const double JUMP_AMPLITUDE = 80.0;
-const double JUMP_PERIOD = 1.0;
+const double JUMP_PERIOD = 2.0;
 
 struct GdiResources
 {
@@ -14,8 +14,6 @@ struct GdiResources
 	CBrush redBrush;
 };
 
-class CDC;
-
 class Letter
 {
 public:
@@ -25,7 +23,8 @@ public:
 	}
 
 	virtual void Draw(CDC* pDC, GdiResources& gdiResources, double animationTime, int centerX, int centerY) = 0;
-
+	virtual ~Letter() {}
+protected:
 	double CalculateBounceOffset(double time) const
 	{
 		double adjustedTime = time + m_phaseOffset;
@@ -34,8 +33,6 @@ public:
 		return JUMP_AMPLITUDE * (1.0 - 4 * pow(normalizedTime - 0.5, 2));
 	}
 
-	virtual ~Letter() {}
-protected:
 	int m_size;
 	double m_phaseOffset;
 };

@@ -21,7 +21,7 @@ public:
 
 // Переопределение
 public:
-	virtual void OnDraw(CDC* pDC);  // переопределено для отрисовки этого представления
+	virtual void OnDraw(CDC* pDC);
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual void OnDestroy();
 protected:

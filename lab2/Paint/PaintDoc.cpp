@@ -94,8 +94,8 @@ BOOL CPaintDoc::OnSaveDocument(LPCTSTR lpszPathName)
 		return FALSE;
 	}
 
-	CLSID encoderClsid;
-	if (!GetEncoderClsid(L"image/jpeg", &encoderClsid))
+	CLSID encoderClsid = GetEncoderClsid(_T("image/jpeg"));
+	if (encoderClsid == CLSID_NULL)
 	{
 		AfxMessageBox(_T("JPEG codec not found"));
 		return FALSE;
@@ -106,7 +106,7 @@ BOOL CPaintDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	encoderParams.Parameter[0].Guid = Gdiplus::EncoderQuality;
 	encoderParams.Parameter[0].Type = Gdiplus::EncoderParameterValueTypeLong;
 	encoderParams.Parameter[0].NumberOfValues = 1;
-	ULONG quality = 90;
+	LONG quality = 100;
 	encoderParams.Parameter[0].Value = &quality;
 
 	Gdiplus::Status status = m_bitmap->Save(lpszPathName, &encoderClsid, &encoderParams);
@@ -118,12 +118,11 @@ BOOL CPaintDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	return TRUE;
 }
 
-BOOL CPaintDoc::GetEncoderClsid(const WCHAR* format, CLSID* pClsid) const
+CLSID CPaintDoc::GetEncoderClsid(const WCHAR* format) const
 {
 	UINT num = 0;
 	UINT size = 0;
 	Gdiplus::GetImageEncodersSize(&num, &size);
-	if (size == 0) return FALSE;
 
 	std::vector<BYTE> buffer(size);
 	Gdiplus::ImageCodecInfo* pImageCodecInfo = reinterpret_cast<Gdiplus::ImageCodecInfo*>(buffer.data());
@@ -133,12 +132,11 @@ BOOL CPaintDoc::GetEncoderClsid(const WCHAR* format, CLSID* pClsid) const
 	{
 		if (wcscmp(pImageCodecInfo[i].MimeType, format) == 0)
 		{
-			*pClsid = pImageCodecInfo[i].Clsid;
-			return TRUE;
+			return pImageCodecInfo[i].Clsid;
 		}
 	}
 
-	return FALSE;
+	return CLSID_NULL;
 }
 
 void CPaintDoc::DeleteContents()

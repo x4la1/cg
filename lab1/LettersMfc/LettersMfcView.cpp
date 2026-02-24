@@ -95,6 +95,12 @@ void CLettersMfcView::OnInitialUpdate()
 void CLettersMfcView::OnDestroy()
 {
 	KillTimer(ANIMATION_TIMER_ID);
+	DeleteObject(m_gdiResources.whitePen);
+	DeleteObject(m_gdiResources.whiteBrush);
+	DeleteObject(m_gdiResources.bluePen);
+	DeleteObject(m_gdiResources.bluePen);
+	DeleteObject(m_gdiResources.redPen);
+	DeleteObject(m_gdiResources.redPen);
 
 	CView::OnDestroy();
 }

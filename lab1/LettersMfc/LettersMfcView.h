@@ -7,8 +7,6 @@
 #include <vector>
 #include <memory>
 
-
-
 class CLettersMfcView : public CView
 {
 protected: // создать только из сериализации

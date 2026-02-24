@@ -46,7 +46,7 @@ public:
 #endif
 
 protected:
-	BOOL GetEncoderClsid(const WCHAR* format, CLSID* pClsid) const;
+	CLSID GetEncoderClsid(const WCHAR* format) const;
 
 	std::unique_ptr<Gdiplus::Bitmap> m_bitmap;
 
