@@ -71,11 +71,13 @@ BOOL CImageViewerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	Gdiplus::Image img(lpszPathName);
 	if (img.GetLastStatus() != Gdiplus::Ok)
 	{
+		AfxMessageBox(_T("File is not image"));
 		return FALSE;
 	}
 
-	GUID* format = new GUID;
-	img.GetRawFormat(format);
+	auto format = std::make_unique<GUID>();
+
+	img.GetRawFormat(format.get());
 
 	if (*format != Gdiplus::ImageFormatJPEG)
 	{

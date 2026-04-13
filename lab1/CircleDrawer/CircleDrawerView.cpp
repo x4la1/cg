@@ -32,7 +32,7 @@ CCircleDrawerView::CCircleDrawerView() noexcept
 	m_circle = std::make_unique<Circle>(
 		400,
 		300,
-		100,
+		200,
 		RGB(0, 0, 0),
 		RGB(0, 255, 0),
 		1

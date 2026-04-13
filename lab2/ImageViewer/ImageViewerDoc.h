@@ -5,7 +5,6 @@
 
 #pragma once
 
-
 class CImageViewerDoc : public CDocument
 {
 protected: // создать только из сериализации
