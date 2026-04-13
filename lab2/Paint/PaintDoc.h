@@ -1,8 +1,6 @@
 ﻿
-// PaintDoc.h: интерфейс класса CPaintDoc 
+// PaintDoc.h: интерфейс класса CPaintDoc
 //
-
-
 #pragma once
 
 
