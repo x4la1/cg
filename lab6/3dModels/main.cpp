@@ -4,9 +4,6 @@
 #include "Model.h"
 #include "GdiInitializer.h"
 
-
-
-
 int main(int argc, char** argv)
 {
 	GdiplusInitializer init;

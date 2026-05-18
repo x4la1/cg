@@ -220,27 +220,16 @@ private:
 	Mesh(const Mesh&) {}
 	Mesh& operator=(const Mesh&) {}
 
-	// ћассив подсеток внутри данной сетки
 	std::vector<SubMesh> m_subMeshes;
-	// ћассив индексов материалов, используемых данной сеткой
 	std::vector<int> m_materials;
-	// ћассив, задающий индекс подсетки дл€ каждого материала
 	std::vector<int> m_materialSubMesh;
 
-	// —мещение в вершинном буфере к вершинам данной сетки
 	unsigned int m_vertexBufferOffset;
-	// —мещение в индексном буфере к индексам данной сетки
 	unsigned int m_indexBufferOffset;
-	//  оличество вершин в сетке
 	unsigned int m_vertexCount;
-	//  оличество индексов в сетке
 	unsigned int m_indexCount;
-	// —в€заны ли вершинные координаты с вершинами сетки
 	bool m_hasTexture;
-	// ќграничивающий блок полигональной сетки
 	BoundingBox const m_boundingBox;
-	// “ип примитивов полигональной сетки (GL_TRIANGLES и т.п.)
 	GLenum m_primitiveType;
-	// “ип индексов полигональной сетки (GL_UNSIGNED_SHORT и т.п.)
 	GLenum m_indexType;
 };
