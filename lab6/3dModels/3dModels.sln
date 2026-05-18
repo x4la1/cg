@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37216.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3dModels", "3dModels.vcxproj", "{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Debug|x64.ActiveCfg = Debug|x64
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Debug|x64.Build.0 = Debug|x64
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Debug|x86.ActiveCfg = Debug|Win32
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Debug|x86.Build.0 = Debug|Win32
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Release|x64.ActiveCfg = Release|x64
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Release|x64.Build.0 = Release|x64
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Release|x86.ActiveCfg = Release|Win32
+		{8394BC98-D0BF-47A8-AEA9-5B290AB131BA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8B9C11B-A9E7-4F40-86A6-921E08FD28CD}
+	EndGlobalSection
+EndGlobal
