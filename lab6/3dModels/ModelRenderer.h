@@ -37,8 +37,6 @@ public:
 
 		const int materialCount = static_cast<int>(model.GetMeterialCount());
 
-		// Transparent materials go in a second pass, otherwise glass writes
-		// into the depth buffer too early and hides opaque geometry behind it.
 		for (int pass = 0; pass < 2; ++pass)
 		{
 			const bool transparentPass = (pass == 1);
@@ -103,25 +101,19 @@ private:
 	}
 
 	bool RenderMaterialSubMesh(
-		Model const& model,	// РјРѕРґРµР»СЊ
-		unsigned meshIndex,		// РёРЅРґРµРєСЃ СЃРµС‚РєРё
-		int materialIndex,		// РёРЅРґРµРєСЃ РјР°С‚РµСЂРёР°Р»Р°
-		bool activateMaterial	// РЅСѓР¶РЅРѕ Р»Рё Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ РјР°С‚РµСЂРёР°Р»?
+		Model const& model,
+		unsigned meshIndex,
+		int materialIndex,
+		bool activateMaterial
 	)const
 	{
-		// РџРѕР»СѓС‡Р°РµРј СЃРµС‚РєСѓ РїРѕ РµРµ РёРЅРґРµРєСЃСѓ
 		Mesh const& mesh = model.GetMesh(meshIndex);
 
-		// РџРѕР»СѓС‡Р°РµРј РёРЅРґРµРєСЃ РїРѕРґСЃРµС‚РєРё, РёСЃРїРѕР»СЊР·СѓСЋС‰РµР№ РјР°С‚РµСЂРёР°Р» materialIndex
 		const int materialSubMeshIndex =
 			mesh.GetMaterialSubMesh(materialIndex);
 
-		// Р•СЃР»Рё РІ РґР°РЅРЅРѕР№ СЃРµС‚РєРµ РЅРµС‚ РіСЂР°РЅРµР№, РёСЃРїРѕР»СЊР·СѓСЋС‰РёС… РјР°С‚РµСЂРёР°Р»
-		// materialIndex, С‚Рѕ РІС‹С…РѕРґРёРј, С‚.Рє. СЂРёСЃРѕРІР°С‚СЊ РЅРµС‡РµРіРѕ
 		if (materialSubMeshIndex < 0)
 		{
-			// С‚.Рє. РјС‹ РЅРёС‡РµРіРѕ РЅРµ СЂРёСЃСѓРµРј, С‚Рѕ СЃРѕРѕР±С‰Р°РµРј, С‡С‚Рѕ РјР°С‚РµСЂРёР°Р»
-			// РјС‹ РЅРµ Р°РєС‚РёРІРёСЂРѕРІР°Р»Рё
 			return false;
 		}
 
@@ -205,16 +197,11 @@ private:
 	{
 		unsigned vertexBufferOffset = mesh.GetVertexBufferOffset();
 
-		// Р•СЃС‚СЊ Р»Рё РІ СЃРµС‚РєРµ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹?
 		bool meshUsesTexture = mesh.HasTextureCoords();
 
-		// Р’С‹С‡РёСЃР»СЏРµРј РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ РІРµСЂС€РёРЅР°РјРё РїРѕР»РёРіРѕРЅР°Р»СЊРЅРѕР№ СЃРµС‚РєРё
-		// РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РЅР°Р»РёС‡РёСЏ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚
 		unsigned stride =
 			meshUsesTexture ? sizeof(TexturedVertex) : sizeof(Vertex);
 
-		// Р—Р°РґР°РµРј Р°РґСЂРµСЃР° РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІРѕРІ РІРµСЂС€РёРЅ Рё РЅРѕСЂРјР°Р»РµР№ С‚РµРєСѓС‰РµР№
-		// РїРѕР»РёРѕРіРѕРЅР°Р»СЊРЅРѕР№ СЃРµС‚РєРё
 		glVertexPointer(
 			3,
 			GL_FLOAT,
@@ -236,8 +223,6 @@ private:
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		}
 
-		// Р•СЃР»Рё СЃРµС‚РєР° РёСЃРїРѕР»СЊР·СѓРµС‚ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹, Р·Р°РґР°РµРј
-		// Р°РґСЂРµСЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР° С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚
 		if (meshUsesTexture)
 		{
 			glTexCoordPointer(
@@ -249,33 +234,22 @@ private:
 				offsetof(TexturedVertex, texCoord));
 		}
 
-		// РћР±РЅРѕРІР»СЏРµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С‚РѕРј, Р±С‹Р» Р»Рё РІРєР»СЋС‡РµРЅ РјР°СЃСЃРёРІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚
 		m_texCoordsEnabled = meshUsesTexture;
 	}
 
-	// Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ РіСЂР°РЅРµР№ РїРѕРґСЃРµС‚РєРё
-	// РџСЂРµРґРїРѕР»Р°РіР°РµС‚СЃСЏ, С‡С‚Рѕ Р°РґСЂРµСЃР° РјР°СЃСЃРёРІРѕРІ РІРµСЂС€РёРЅ, РЅРѕСЂРјР°Р»РµР№ Рё С‚РµРєСЃС‚СѓСЂРЅС‹С…
-	// РєРѕРѕСЂРґРёРЅР°С‚ СѓР¶Рµ РЅР°СЃС‚СЂРѕРµРЅС‹ РЅР° С‚РµРєСѓС‰СѓСЋ СЃРµС‚РєРё
 	void RenderSubMeshFaces(
-		Mesh const& mesh,				// СЃРµС‚РєР°
-		unsigned subMeshIndex,			// РёРЅРґРµРєСЃ СЂРёСЃСѓРµРјРѕР№ РїРѕРґСЃРµС‚РєРё
-		GLubyte const* pMeshIndices	// Р°РґСЂРµСЃ РјР°СЃСЃРёРІР° РёРЅРґРµРєСЃРѕРІ СЃРµС‚РєРё
+		Mesh const& mesh,				
+		unsigned subMeshIndex,			
+		GLubyte const* pMeshIndices
 	)const
 	{
-		// РїРѕР»СѓС‡Р°РµРј РїРѕРґСЃРµС‚РєСѓ СЃ РёРЅРґРµРєСЃРѕРј subMeshIndex
 		Mesh::SubMesh const subMesh = mesh.GetSubMesh(subMeshIndex);
 
-		// Р’С‹С‡РёСЃР»СЏРµРј Р°РґСЂРµСЃ РїРѕРґСЃРµС‚РєРё РІ РёРЅРґРµРєСЃРЅРѕРј Р±СѓС„РµСЂРµ
 		GLubyte const* pSubMeshPointer =
 			pMeshIndices + (subMesh.startIndex * mesh.GetIndexSize());
 
-		// Р•СЃР»Рё РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ СЂР°СЃС€РёСЂРµРЅРёРµ GL_EXT_draw_range_elements,
-		// РёСЃРїРѕР»СЊР·СѓРµРј РµРіРѕ РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ РјР°СЃСЃРёРІР° РїСЂРёРјРёС‚РёРІРѕРІ,
-		// С‚.Рє. РµРіРѕ СЂРµР°Р»РёР·Р°С†РёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»РµРµ СЌС„С„РµРєС‚РёРІРЅРѕР№
-		// РїРѕ СЃСЂР°РІРЅРµРЅРёСЋ c glDrawElements
 		if (GLEW_EXT_draw_range_elements)
 		{
-			// РСЃРїРѕР»СЊР·СѓРµРј Р±РѕР»РµРµ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅС‹Р№ СЃРїРѕСЃРѕР± СЂРёСЃРѕРІР°РЅРёСЏ 
 			glDrawRangeElements(
 				mesh.GetPrimitiveType(),
 				0,
@@ -287,8 +261,6 @@ private:
 		}
 		else
 		{
-			// Р•СЃР»Рё СЂР°СЃС€РёСЂРµРЅРёРµ GL_EXT_draw_range_elements РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ,
-			// СЂРёСЃСѓРµРј С‚СЂР°РґРёС†РёРѕРЅРЅС‹Рј СЃРїРѕСЃРѕР±РѕРј
 			glDrawElements(
 				mesh.GetPrimitiveType(),
 				subMesh.indexCount,
@@ -298,11 +270,7 @@ private:
 		}
 	}
 
-	// Р‘С‹Р» Р»Рё РІРєР»СЋС‡РµРЅ РјР°СЃСЃРёРІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚?
 	mutable bool m_texCoordsEnabled;
-	// Tracks whether GL_TEXTURE_2D is enabled for the current material.
 	mutable bool m_texture2DEnabled;
-	// Р‘С‹Р» Р»Рё РІРєР»СЋС‡РµРЅ СЂРµР¶РёРј РѕС‚Р±СЂР°РєРѕРІРєРё РіСЂР°РЅРµР№?
 	mutable bool m_cullFace;
-
 };

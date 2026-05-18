@@ -11,7 +11,7 @@ public:
 
         if (Gdiplus::GdiplusStartup(&m_token, &input, &output) != Gdiplus::Ok)
         {
-            // РќРµ СѓРґР°Р»РѕСЃСЊ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ GDI+
+            // Не удалось инициализировать GDI+
             throw std::runtime_error("Failed to initialize GDI+");
         }
     }
