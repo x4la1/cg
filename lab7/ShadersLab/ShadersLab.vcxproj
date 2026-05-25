@@ -131,24 +131,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="checkers.fsh">
-      <FileType>Document</FileType>
-    </Text>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationContoller.h" />
     <ClInclude Include="BaseTexture.h" />
+    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="BufferObjectBase.h" />
+    <ClInclude Include="CannabolaApplication.h" />
     <ClInclude Include="DirectLight.h" />
     <ClInclude Include="GdiInitializer.h" />
     <ClInclude Include="GLApplication.h" />
+    <ClInclude Include="MorphShape.h" />
     <ClInclude Include="MyApplication.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProgramBase.h" />
+    <ClInclude Include="ProgramInfo.h" />
     <ClInclude Include="RotationContoller.h" />
     <ClInclude Include="ShaderBase.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="ProgramLinker.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="FlagApplication.h" />
+    <ClInclude Include="SphereMorphApplication.h" />
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +162,7 @@
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="checkers.vsh">
+    <Text Include="twist.vsh">
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
