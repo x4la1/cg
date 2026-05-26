@@ -1,5 +1,3 @@
-uniform float phase;
-
 void main()
 {
     float x = gl_Vertex.x;
@@ -8,7 +6,7 @@ void main()
     vec4 pos = vec4(
         r * cos(x),
         r * sin(x),
-        gl_Vertex.z,
+        0.0,
         1.0
     );
 

@@ -37,7 +37,7 @@ protected:
 		InitShaders();
 
 		int numSteps = 2000;
-		float step = 2.0f * 3.14159265358979323846f / numSteps;
+		float step = 2.0 * 3.14159265358979323846f / numSteps;
 
 		std::vector<glm::fvec3> vertices;
 		vertices.reserve(numSteps + 1);

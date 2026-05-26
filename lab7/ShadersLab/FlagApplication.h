@@ -66,15 +66,12 @@ protected:
 	void InitShaders()
 	{
 		ShaderLoader loader;
-		Shader vertexShader = loader.LoadShader(GL_VERTEX_SHADER, L"shaders/flag.vsh");
 		Shader fragmentShader = loader.LoadShader(GL_FRAGMENT_SHADER, L"shaders/flag.fsh");
 
 		m_program.Create();
-		m_program.AttachShader(vertexShader);
 		m_program.AttachShader(fragmentShader);
 
 		ShaderCompiler compiler;
-		compiler.CompileShader(vertexShader);
 		compiler.CompileShader(fragmentShader);
 		compiler.CheckStatus();
 

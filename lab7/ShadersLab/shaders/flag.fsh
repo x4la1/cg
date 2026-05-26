@@ -1,5 +1,3 @@
-varying vec2 v_pos;
-
 void main()
 {
     vec2 pos = gl_TexCoord[0].xy;

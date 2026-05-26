@@ -1,13 +1,13 @@
 #pragma once
 #include "pch.h"
 #include "GdiInitializer.h"
-#include "SphereMorphApplication.h"
+#include "CannabolaApplication.h"
 
 int main()
 {
 	GdiplusInitializer gdiInitializer;
 
-	SphereMorphApplication app;
+	CannabolaApplication app;
 	
 	glewInit();
 	if (!GLEW_ARB_shader_objects)
